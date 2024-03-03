@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QR-Creator.Core", "src\QR-Creator.Core\QR-Creator.Core.csproj", "{EAC641B8-3CC3-44E6-9312-2521FA7C15BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QR-Creator.Console", "apps\QR-Creator.Console\QR-Creator.Console.csproj", "{3B3ED5FD-E6CA-46EA-8924-7782A949029C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EAC641B8-3CC3-44E6-9312-2521FA7C15BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAC641B8-3CC3-44E6-9312-2521FA7C15BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAC641B8-3CC3-44E6-9312-2521FA7C15BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAC641B8-3CC3-44E6-9312-2521FA7C15BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B3ED5FD-E6CA-46EA-8924-7782A949029C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B3ED5FD-E6CA-46EA-8924-7782A949029C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B3ED5FD-E6CA-46EA-8924-7782A949029C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B3ED5FD-E6CA-46EA-8924-7782A949029C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {99650455-C79B-45E2-A59A-B2089FA4FBA9}
+	EndGlobalSection
+EndGlobal
