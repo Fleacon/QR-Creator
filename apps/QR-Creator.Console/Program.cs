@@ -1,2 +1,7 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using QR_Creator.Core.QREncoding;
+using QR_Creator.Core.QREncoding.Modes;
+using System.Text;
+
+var encoder = new QREncoder();
+
+Console.WriteLine(encoder.encode("HELLO WORLD"));
