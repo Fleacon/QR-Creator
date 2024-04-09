@@ -4,4 +4,4 @@ using System.Text;
 
 var encoder = new QREncoder();
 
-Console.WriteLine(encoder.encode("HELLO WORLD"));
+Console.WriteLine(encoder.encode("01234567"));

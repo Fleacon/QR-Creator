@@ -15,19 +15,17 @@ namespace QR_Creator.Core.QREncoding
         IMode mode;
         public QREncoder() 
         {
-            mode = new Alphanumeric();
+            this.mode = new Numeric();
         }
 
         public string encode(string data)
         {
             return mode.encode(data);
         }
-    }
 
-    public enum Mode
-    {
-        ALPHANUMERIC,
-        NUMERIC,
-        BYTE
+        private void decideMode(string data)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

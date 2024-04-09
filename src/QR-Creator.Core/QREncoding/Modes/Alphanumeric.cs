@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace QR_Creator.Core.QREncoding.Modes
 {
@@ -12,12 +13,16 @@ namespace QR_Creator.Core.QREncoding.Modes
      */
     internal class Alphanumeric : IMode
     {
-        const Mode CurrentMode = Mode.ALPHANUMERIC;
-        const string ModeIndicator = "0010";
-        bool hasOddNumberOfCharacters = false;
+        string modeIndicator = "0010";
+        private bool hasOddNumberOfCharacters = false;
+
+        public Alphanumeric()
+        {
+            
+        }
 
         public string encode(string data)
-        {
+        {   
             hasOddNumberOfCharacters = data.Length % 2 != 0;
             return convertToBinary(combinePair(breakUpPairs(data)));
         }
@@ -29,7 +34,12 @@ namespace QR_Creator.Core.QREncoding.Modes
             string buffer = "";
             for (int i = 0; i < fullString.Length; i++)
             {
-                if (i % 2 != 0 || i == 0)
+                if (i + 1 == fullString.Length)
+                {
+                    buffer += fullString[i];
+                    pairs.Add(buffer);
+                }
+                else if (i % 2 != 0 || i == 0)
                 {
                     buffer += fullString[i];
                 } 
@@ -38,10 +48,6 @@ namespace QR_Creator.Core.QREncoding.Modes
                     pairs.Add(buffer);
                     buffer = "";
                     buffer += fullString[i]; 
-                    if (i + 1 == fullString.Length)
-                    {
-                        pairs.Add(buffer);
-                    }
                 }
             }
             return pairs;
@@ -90,7 +96,6 @@ namespace QR_Creator.Core.QREncoding.Modes
         /**
          * This Dictionary contains every Character that can be encoded using Alphanumeric mode.
          * Every Character corresponds to a int Value
-
          */
         Dictionary<char, int> alphanumericTable = new Dictionary<char, int>()
         {
