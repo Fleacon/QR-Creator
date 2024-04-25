@@ -82,15 +82,20 @@ namespace QR_Creator.Core.QREncoding.Modes
             {
                 if (hasOddNumberOfCharacters && list.Count == i + 1)
                 {
-                    binary += Convert.ToString(num, 2).PadLeft(6, '0');
+                    binary += toBinary(num, 6);
                 }
                 else
                 {
-                    binary += Convert.ToString(num, 2).PadLeft(11, '0');
+                    binary += toBinary(num, 11);
                 }
                 i++;
             }
             return binary;
+        }
+
+        private string toBinary(int data, int padding)
+        {
+            return Convert.ToString(data, 2).PadLeft(padding, '0');
         }
 
         /**

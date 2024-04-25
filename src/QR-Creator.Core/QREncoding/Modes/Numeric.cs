@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace QR_Creator.Core.QREncoding.Modes
 {
@@ -31,6 +32,11 @@ namespace QR_Creator.Core.QREncoding.Modes
             {
                 if (i + 1 == fullString.Length)
                 {
+                    if (buffer.Length == 3)
+                    {
+                        groups.Add(buffer);
+                        buffer = "";
+                    }
                     buffer += fullString[i];
                     groups.Add(buffer);
                 }
@@ -45,6 +51,10 @@ namespace QR_Creator.Core.QREncoding.Modes
                     buffer += fullString[i];
                 }
             }
+            foreach (string group in groups)
+            {
+                Console.WriteLine(group);
+            }
             return groups;
         }
 
@@ -55,25 +65,31 @@ namespace QR_Creator.Core.QREncoding.Modes
             int i = 0;
             foreach (string num in list)
             {
-                int intNum = int.Parse(num);
                 if (!isMultipleOfThree && list.Count == i + 1)
                 {
                     if(num.Length == 1)
                     {
-                        binary += Convert.ToString(intNum, 2).PadLeft(4, '0');
+                        binary += toBinary(num, 4);
                     }
                     else if (num.Length == 2)
                     {
-                        binary += Convert.ToString(intNum, 2).PadLeft(7, '0');
+
+                        binary += toBinary(num, 7);
                     }
                 }
                 else
                 {
-                    binary += Convert.ToString(intNum, 2).PadLeft(10, '0');
+                    binary += toBinary(num, 10);
                 }
                 i++;
             }
             return binary;
+        }
+
+        private string toBinary(string data, int padding)
+        {
+            int intnum = int.Parse(data);
+            return Convert.ToString(intnum, 2).PadLeft(padding, '0');
         }
     }
 }

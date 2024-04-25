@@ -12,5 +12,7 @@ namespace QR_Creator.Core.QREncoding.Modes
         {
             throw new NotImplementedException();
         }
+
+
     }
 }
