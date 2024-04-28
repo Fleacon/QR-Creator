@@ -11,20 +11,20 @@ namespace QR_Creator.Core.QREncoding.Modes
      * This class contains all the logic for converting a string of Uppercase letters,
      * into a string of bits 
      */
-    internal class Alphanumeric : IMode
+    internal class MAlphanumeric : IMode
     {
-        string modeIndicator = "0010";
+        private const string modeIndicator = "0010";
         private bool hasOddNumberOfCharacters = false;
 
-        public Alphanumeric()
+        public MAlphanumeric()
         {
-            
+
         }
 
         public string encode(string data)
         {   
             hasOddNumberOfCharacters = data.Length % 2 != 0;
-            return convertToBinary(combinePair(breakUpPairs(data)));
+            return toFullBinary(combinePair(breakUpPairs(data)));
         }
 
         private List<string> breakUpPairs(string fullString)
@@ -74,7 +74,7 @@ namespace QR_Creator.Core.QREncoding.Modes
             return numbers;
         }
 
-        private string convertToBinary(List<int> list)
+        private string toFullBinary(List<int> list)
         {
             string binary = "";
             int i = 0;

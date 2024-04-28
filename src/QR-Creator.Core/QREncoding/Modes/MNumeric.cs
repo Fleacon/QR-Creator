@@ -7,13 +7,13 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace QR_Creator.Core.QREncoding.Modes
 {
-    internal class Numeric : IMode
+    internal class MNumeric : IMode
     {
 
-        string modeIndicator = "0001";
+        private const string modeIndicator = "0001";
         private bool isMultipleOfThree;
 
-        public Numeric() 
+        public MNumeric() 
         {
             
         }
@@ -21,7 +21,7 @@ namespace QR_Creator.Core.QREncoding.Modes
         public string encode(string data)
         {
             isMultipleOfThree = data.Length % 3 == 0;
-            return convertToBinary(breakUpThree(data));
+            return toFullBinary(breakUpThree(data));
         }
 
         private List<string> breakUpThree(string fullString)
@@ -51,14 +51,10 @@ namespace QR_Creator.Core.QREncoding.Modes
                     buffer += fullString[i];
                 }
             }
-            foreach (string group in groups)
-            {
-                Console.WriteLine(group);
-            }
             return groups;
         }
 
-        private string convertToBinary(List<string> list)
+        private string toFullBinary(List<string> list)
         {
             string binary = "";
 

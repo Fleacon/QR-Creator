@@ -12,10 +12,28 @@ namespace QR_Creator.Core.QREncoding
      */
     public class QREncoder
     {
-        IMode mode;
-        public QREncoder() 
+        readonly IMode mode;
+        public QREncoder(Mode mode) 
         {
-            this.mode = new Numeric();
+            this.mode = mode switch
+            {
+                Mode.Byte => new MByte(),
+                Mode.Alphanumeric => new MAlphanumeric(),
+                Mode.Numeric => new MNumeric(),
+                _ => throw new NotSupportedException(),
+            };
+        }
+
+        public QREncoder(Mode mode, ByteEncoders byteEncoder)
+        {
+            if (mode != Mode.Byte) 
+            {
+                throw new Exception("Only Byte Mode can use byteEncoder"); 
+            } 
+            else
+            {
+                this.mode = new MByte(byteEncoder);
+            }
         }
 
         public string encode(string data)
@@ -27,5 +45,16 @@ namespace QR_Creator.Core.QREncoding
         {
             throw new NotImplementedException();
         }
+    }
+    public enum Mode
+    {
+        Byte,
+        Alphanumeric,
+        Numeric
+    }
+    public enum ByteEncoders
+    {
+        ISO,
+        UTF8
     }
 }
