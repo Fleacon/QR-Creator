@@ -12,45 +12,54 @@ namespace QR_Creator.Core.QREncoding
      */
     public class QREncoder
     {
-        readonly IMode mode;
+        public IMode ?Mode {  get; private set; }
+
+        public QREncoder()
+        {
+
+        }
         public QREncoder(Mode mode) 
         {
-            this.mode = mode switch
+            SetMode(mode);
+        }
+
+        public string Encode(string data)
+        {
+            if (Mode != null)
             {
-                Mode.Byte => new MByte(),
-                Mode.Alphanumeric => new MAlphanumeric(),
-                Mode.Numeric => new MNumeric(),
+                return Mode.Encode(data);
+            }
+            else
+            {
+                SetMode(AnalyzeData(data));
+                return Mode.Encode(data);
+            }
+        }
+
+        public void SetMode(Mode mode)
+        {
+            Mode = mode switch
+            {
+                QREncoding.Mode.ByteUTF8 => new MByte(ByteEncoders.UTF8),
+                QREncoding.Mode.ByteISO => new MByte(ByteEncoders.ISO),
+                QREncoding.Mode.Alphanumeric => new MAlphanumeric(),
+                QREncoding.Mode.Numeric => new MNumeric(),
                 _ => throw new NotSupportedException(),
             };
         }
 
-        public QREncoder(Mode mode, ByteEncoders byteEncoder)
+        private Mode AnalyzeData(string data)
         {
-            if (mode != Mode.Byte) 
-            {
-                throw new Exception("Only Byte Mode can use byteEncoder"); 
-            } 
-            else
-            {
-                this.mode = new MByte(byteEncoder);
-            }
-        }
-
-        public string encode(string data)
-        {
-            return mode.encode(data);
-        }
-
-        private void decideMode(string data)
-        {
-            throw new NotImplementedException();
+            return Analyzer.Analyze(data);
         }
     }
     public enum Mode
     {
-        Byte,
+        ByteUTF8,
+        ByteISO,
         Alphanumeric,
-        Numeric
+        Numeric,
+        Invalid
     }
     public enum ByteEncoders
     {
