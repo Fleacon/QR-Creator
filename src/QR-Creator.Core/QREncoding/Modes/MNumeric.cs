@@ -10,7 +10,7 @@ namespace QR_Creator.Core.QREncoding.Modes
     internal class MNumeric : IMode
     {
 
-        private const string modeIndicator = "0001";
+        private const string ModeIndicator = "0001";
         private bool isMultipleOfThree;
 
         public MNumeric() 
@@ -18,15 +18,15 @@ namespace QR_Creator.Core.QREncoding.Modes
             
         }
 
-        public string encode(string data)
+        public string Encode(string data)
         {
             isMultipleOfThree = data.Length % 3 == 0;
-            return toFullBinary(breakUpThree(data));
+            return ToFullBinary(BreakUpThree(data));
         }
 
-        private List<string> breakUpThree(string fullString)
+        private List<string> BreakUpThree(string fullString)
         {
-            List<string> groups = new List<string>();
+            List<string> groups = [];
             string buffer = "";
             for (int i = 0; i < fullString.Length; i++)
             {
@@ -54,7 +54,7 @@ namespace QR_Creator.Core.QREncoding.Modes
             return groups;
         }
 
-        private string toFullBinary(List<string> list)
+        private string ToFullBinary(List<string> list)
         {
             string binary = "";
 
@@ -65,24 +65,24 @@ namespace QR_Creator.Core.QREncoding.Modes
                 {
                     if(num.Length == 1)
                     {
-                        binary += toBinary(num, 4);
+                        binary += ToBinary(num, 4);
                     }
                     else if (num.Length == 2)
                     {
 
-                        binary += toBinary(num, 7);
+                        binary += ToBinary(num, 7);
                     }
                 }
                 else
                 {
-                    binary += toBinary(num, 10);
+                    binary += ToBinary(num, 10);
                 }
                 i++;
             }
             return binary;
         }
 
-        private string toBinary(string data, int padding)
+        private string ToBinary(string data, int padding)
         {
             int intnum = int.Parse(data);
             return Convert.ToString(intnum, 2).PadLeft(padding, '0');

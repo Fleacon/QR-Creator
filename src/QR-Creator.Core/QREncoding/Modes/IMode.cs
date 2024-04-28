@@ -8,6 +8,6 @@ namespace QR_Creator.Core.QREncoding.Modes
 {
     public interface IMode
     {
-        public string encode(string data);
+        public string Encode(string data);
     }
 }

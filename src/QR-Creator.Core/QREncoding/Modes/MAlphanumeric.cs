@@ -13,23 +13,23 @@ namespace QR_Creator.Core.QREncoding.Modes
      */
     internal class MAlphanumeric : IMode
     {
-        private const string modeIndicator = "0010";
-        private bool hasOddNumberOfCharacters = false;
+        private const string ModeIndicator = "0010";
+        private bool hasOddNumberOfCharacters;
 
         public MAlphanumeric()
         {
 
         }
 
-        public string encode(string data)
+        public string Encode(string data)
         {   
             hasOddNumberOfCharacters = data.Length % 2 != 0;
-            return toFullBinary(combinePair(breakUpPairs(data)));
+            return ToFullBinary(CombinePair(BreakUpPairs(data)));
         }
 
-        private List<string> breakUpPairs(string fullString)
+        private List<string> BreakUpPairs(string fullString)
         {
-            List<string> pairs = new List<string>();
+            List<string> pairs = [];
 
             string buffer = "";
             for (int i = 0; i < fullString.Length; i++)
@@ -53,7 +53,7 @@ namespace QR_Creator.Core.QREncoding.Modes
             return pairs;
         }
 
-        private List<int> combinePair(List<string> pairs)
+        private List<int> CombinePair(List<string> pairs)
         {
             List<int> numbers = new List<int>();
             int i = 0;
@@ -74,7 +74,7 @@ namespace QR_Creator.Core.QREncoding.Modes
             return numbers;
         }
 
-        private string toFullBinary(List<int> list)
+        private string ToFullBinary(List<int> list)
         {
             string binary = "";
             int i = 0;
@@ -82,18 +82,18 @@ namespace QR_Creator.Core.QREncoding.Modes
             {
                 if (hasOddNumberOfCharacters && list.Count == i + 1)
                 {
-                    binary += toBinary(num, 6);
+                    binary += ToBinary(num, 6);
                 }
                 else
                 {
-                    binary += toBinary(num, 11);
+                    binary += ToBinary(num, 11);
                 }
                 i++;
             }
             return binary;
         }
 
-        private string toBinary(int data, int padding)
+        private string ToBinary(int data, int padding)
         {
             return Convert.ToString(data, 2).PadLeft(padding, '0');
         }
@@ -102,7 +102,7 @@ namespace QR_Creator.Core.QREncoding.Modes
          * This Dictionary contains every Character that can be encoded using Alphanumeric mode.
          * Every Character corresponds to a int Value
          */
-        Dictionary<char, int> alphanumericTable = new Dictionary<char, int>()
+        readonly Dictionary<char, int> alphanumericTable = new()
         {
             {'0', 0},
             {'1', 1},

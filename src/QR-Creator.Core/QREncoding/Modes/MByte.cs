@@ -10,8 +10,8 @@ namespace QR_Creator.Core.QREncoding.Modes
 {
     internal class MByte : IMode
     {
-        private const string modeIndicator = "0100";
-        readonly Encoding enc;
+        private const string ModeIndicator = "0100";
+        private readonly Encoding enc;
 
         public MByte(ByteEncoders encoders = ByteEncoders.ISO)
         {
@@ -23,22 +23,22 @@ namespace QR_Creator.Core.QREncoding.Modes
             };
         }
 
-        public string encode(string data)
+        public string Encode(string data)
         {
-            return toFullBinary(data);
+            return ToFullBinary(data);
         }
 
-        private string toFullBinary(string data)
+        private string ToFullBinary(string data)
         {
             string binary = "";
             foreach (char symbol in data)
             {
-                binary += toBinary(symbol, 8, enc);
+                binary += ToBinary(symbol, 8, enc);
             }
             return binary;
         }
 
-        private string toBinary(char symbol, int padding, Encoding encoder)
+        private string ToBinary(char symbol, int padding, Encoding encoder)
         {
             string value = "";
             byte[] bytes = encoder.GetBytes(symbol.ToString());
